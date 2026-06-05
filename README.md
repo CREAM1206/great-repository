@@ -18,3 +18,20 @@ Generated a normalized lookup table with roughly 1,500 alias-to-canonical-name m
 Data Collection: Scraped r/leagueoflegends via the Reddit API.
 Filtering Funnel: Narrowed down hundreds of daily posts by filtering for champions changed in Patch 26.1, expanding search queries via our Alias Resolver, and restricting to a 4-week window (±2 weeks around release).
 Sentiment Labeling: Applied Claude Haiku to classify player stance into: TOO_STRONG, TOO_WEAK, MECHANICAL_ISSUE, NEUTRAL_DISCUSSION, or NOT_ABOUT_CHAMPION
+# 📊 Key Findings
+Players demand heavier nerfs: Among posts discussing nerfed champions, complaints that the champion was "still too strong" (37%) were 5.4x more common than complaints that they were "nerfed too hard" (7%).
+Reaction by Developer Intent: TOO_STRONG sentiments dominated both the NERF and MIXED patches, indicating players default to demanding more nerfs. Meaningful TOO_WEAK complaints (29%) were primarily triggered only when a champion received a BUFF.
+Most Controversial Champions: Smolder and Shaco showed the strongest "still too strong" signal in the dataset. Champions like Nilah and Draven had 75% of their relevant posts claiming they were too strong.
+Temporal Shifts: Post volume spiked the day after the patch release. Furthermore, TOO_WEAK ("nerfed too hard") complaints only appeared after the patch went live, as players reacted to experienced changes.
+# 📂 Repository Structure
+patch_scraper.ipynb: Scripts to scrape and parse Riot patch notes.  
+champion_aliases.py: Builds the in-memory name resolver utilizing Data Dragon.
+reddit_scraper_v2.py: Fetches Reddit posts based on champion filters.  
+llm_patch_direction.py: Prompts Claude Haiku for buff/nerf classification.  
+llm_sentiment.py: Classifies Reddit post stances.
+alignment_analysis_v3.py: Final statistical tests (Mann-Whitney U, Chi-square), event studies, and chart generation.  
+# ⚠️ Limitations
+Scope: The analysis was restricted to a single patch window (Patch 26.1) and may not generalize across different metas.
+Variables: Item and system changes (runes) were ignored, which also shape champion strength.
+Data Depth: We analyzed post titles and body text (selftext), but comment threads were excluded, potentially missing nuanced opinions.
+Platform Bias: Data is exclusively from Reddit, excluding other massive player bases (e.g., Weibo, X/Twitter, official forums).
